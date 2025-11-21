@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --surface-muted: #eef3f0;
+  --foreground: #0f172a;
+  --muted: #5f6c7b;
+  --accent: #00a86b;
+  --accent-soft: rgba(0, 168, 107, 0.12);
+  --neutral: #e4e7eb;
+  --shadow-soft: 0 25px 70px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 20px 35px rgba(15, 23, 42, 0.12);
 }
 
 @theme inline {
@@ -12,15 +20,58 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.surface {
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.15);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.soft-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+.cta-button {
+  transition: transform 250ms ease, box-shadow 250ms ease, background 250ms ease;
+  will-change: transform;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 25px 45px rgba(0, 168, 107, 0.25);
+}
+
+.parallax-layer {
+  transition: transform 150ms ease-out;
+}
+
+.map-glow {
+  filter: drop-shadow(0 12px 30px rgba(0, 168, 107, 0.4));
 }
