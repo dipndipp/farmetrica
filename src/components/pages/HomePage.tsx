@@ -1,3 +1,4 @@
+// [INFO] This file is now unused. Please use src/app/page.tsx for the homepage route.
 "use client";
 
 import {
@@ -11,7 +12,6 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { FeatureCollection } from "geojson";
-import { Footer } from "../layout/Footer";
 
 const floatingPanels = [
   {
@@ -203,12 +203,17 @@ export function HomePage() {
               </p>
             </div>
             <div className="hero-cta flex flex-wrap gap-4">
-              <button className="cta-button rounded-full bg-[var(--accent)] px-8 py-3 text-base font-medium text-white shadow-lg shadow-[rgba(0,168,107,0.25)]">
-                Buka Dashboard
-              </button>
-              <button className="cta-button rounded-full border border-[var(--neutral)] px-8 py-3 text-base font-medium text-slate-900">
-                Lihat Peta
-              </button>
+              <a href="/dashboard">
+                <button className="cta-button rounded-full bg-[var(--accent)] px-8 py-3 text-base font-medium text-white shadow-lg shadow-[rgba(0,168,107,0.25)]">
+                  Buka Dashboard
+                </button>
+              </a>
+              <a href="/map">
+                {" "}
+                <button className="cta-button rounded-full border border-[var(--neutral)] px-8 py-3 text-base font-medium text-slate-900">
+                  Lihat Peta
+                </button>
+              </a>
             </div>
           </div>
           <div
@@ -421,7 +426,7 @@ export function HomePage() {
             </h3>
           </div>
           <p className="text-sm text-muted">
-            Gulir ke samping untuk menjelajahi
+            Geser ke samping untuk menjelajahi
           </p>
         </div>
         <div className="flex gap-6 overflow-x-auto pb-4">
@@ -550,7 +555,7 @@ export function HomePage() {
       >
         <div className="space-y-6">
           <p className="text-sm uppercase tracking-[0.4em] text-white/70">
-            Ajakan Bertindak
+            Call to action
           </p>
           <h3 className="text-4xl font-semibold leading-tight">
             Jelajahi Data. Temukan Cerita di Balik Pertanian Jawa Timur.
@@ -561,17 +566,21 @@ export function HomePage() {
             lokal Jawa Timur.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="cta-button rounded-full bg-white px-8 py-3 text-base font-semibold text-[#052f23]">
+            <a
+              href="/dashboard"
+              className="cta-button rounded-full bg-white px-8 py-3 text-base font-semibold text-[#052f23] text-center inline-block"
+            >
               Buka Dashboard
-            </button>
-            <button className="cta-button rounded-full border border-white/40 px-8 py-3 text-base font-semibold text-white">
+            </a>
+            <a
+              href="/map"
+              className="cta-button rounded-full border border-white/40 px-8 py-3 text-base font-semibold text-white text-center inline-block"
+            >
               Lihat Peta
-            </button>
+            </a>
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

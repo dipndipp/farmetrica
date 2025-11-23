@@ -75,3 +75,22 @@ body {
 .map-glow {
   filter: drop-shadow(0 12px 30px rgba(0, 168, 107, 0.4));
 }
+
+.navbar-animate {
+  animation: navbarPulse 0.3s ease-in-out;
+}
+
+@keyframes navbarPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
