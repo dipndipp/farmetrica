@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "preinstall": "npx only-allow pnpm || npm config set legacy-peer-deps true"
   },
   "dependencies": {
     "framer-motion": "^12.23.24",
