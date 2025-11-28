@@ -27,6 +27,12 @@ export function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Sample Data Section Filters
+  const [sampleSearch, setSampleSearch] = useState("");
+  const [sampleCommodity, setSampleCommodity] =
+    useState<(typeof COMMODITY_OPTIONS)[number]>("ALL");
+  const [sampleSort, setSampleSort] = useState<"asc" | "desc">("desc");
+
   // --- Load CSV from /public/data ---
   useEffect(() => {
     async function loadCsv() {
@@ -60,7 +66,7 @@ export function DashboardPage() {
         const parsed: Row[] = lines.slice(1).map((line) => {
           const cols = line.split(",");
           return {
-            id: idxId !== -1 ? cols[idxId] : crypto.randomUUID(),
+            id: crypto.randomUUID(),
             nama_kabupaten_kota: cols[idxNamaKab],
             kategori: cols[idxKategori] as Row["kategori"],
             jumlah: parseFloat(cols[idxJumlah]) || 0,
@@ -130,6 +136,26 @@ export function DashboardPage() {
       return matchYear && matchCommodity;
     });
   }, [rawRows, selectedYear, selectedCommodity]);
+
+  // --- Filtered rows for Sample Data Section ---
+  const filteredSampleRows = useMemo(() => {
+    const filtered = filteredRows.filter((row) => {
+      const matchSearch = row.nama_kabupaten_kota
+        .toLowerCase()
+        .includes(sampleSearch.toLowerCase());
+      const matchCommodity =
+        sampleCommodity === "ALL" ? true : row.kategori === sampleCommodity;
+      return matchSearch && matchCommodity;
+    });
+
+    return filtered.sort((a, b) => {
+      if (sampleSort === "asc") {
+        return a.jumlah - b.jumlah;
+      } else {
+        return b.jumlah - a.jumlah;
+      }
+    });
+  }, [filteredRows, sampleSearch, sampleCommodity, sampleSort]);
 
   // --- Aggregations for dashboard metrics ---
   const {
@@ -543,14 +569,69 @@ export function DashboardPage() {
                 <p className="text-xs font-medium text-slate-600">
                   Menampilkan{" "}
                   <span className="font-bold text-[var(--accent)]">
-                    {Math.min(10, filteredRows.length)}
+                    {Math.min(10, filteredSampleRows.length)}
                   </span>{" "}
                   dari{" "}
                   <span className="font-semibold text-slate-900">
-                    {filteredRows.length}
+                    {filteredSampleRows.length}
                   </span>{" "}
                   baris
                 </p>
+              </div>
+            </div>
+
+            {/* Sample Data Filters */}
+            <div className="mb-6 flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <svg
+                    className="h-5 w-5 text-slate-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Cari Kabupaten/Kota..."
+                  value={sampleSearch}
+                  onChange={(e) => setSampleSearch(e.target.value)}
+                  className="block w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 hover:border-slate-300"
+                />
+              </div>
+              <div className="min-w-[200px]">
+                <select
+                  value={sampleCommodity}
+                  onChange={(e) =>
+                    setSampleCommodity(
+                      e.target.value as (typeof COMMODITY_OPTIONS)[number]
+                    )
+                  }
+                  className="block w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 hover:border-slate-300"
+                >
+                  {COMMODITY_OPTIONS.map((c) => (
+                    <option key={c} value={c}>
+                      {c === "ALL" ? "Semua Komoditas" : c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="min-w-[160px]">
+                <select
+                  value={sampleSort}
+                  onChange={(e) => setSampleSort(e.target.value as "asc" | "desc")}
+                  className="block w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-900 outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/20 hover:border-slate-300"
+                >
+                  <option value="desc">Luas Panen (Terbesar)</option>
+                  <option value="asc">Luas Panen (Terkecil)</option>
+                </select>
               </div>
             </div>
 
@@ -574,7 +655,7 @@ export function DashboardPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {filteredRows.slice(0, 10).map((row) => (
+                    {filteredSampleRows.slice(0, 10).map((row) => (
                       <tr
                         key={row.id}
                         className="transition-colors hover:bg-slate-50/50"
@@ -599,7 +680,7 @@ export function DashboardPage() {
                         </td>
                       </tr>
                     ))}
-                    {filteredRows.length === 0 && (
+                    {filteredSampleRows.length === 0 && (
                       <tr>
                         <td
                           colSpan={4}
