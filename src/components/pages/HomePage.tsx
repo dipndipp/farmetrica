@@ -53,7 +53,7 @@ const featureHighlights = [
 const visualizationMocks = [
   { type: "line", title: "Laju Produktivitas" },
   { type: "bars", title: "Distribusi Panen" },
-  { type: "box", title: "Variabilitas Harga" },
+  { type: "pie", title: "Proporsi Lahan" },
 ];
 
 const stats = [
@@ -503,44 +503,37 @@ export function HomePage() {
                     ))}
                   </svg>
                 )}
-                {chart.type === "box" && (
-                  <svg
-                    viewBox="0 0 180 100"
-                    className="h-full w-full text-[var(--accent)]"
-                  >
-                    <line
-                      x1="30"
-                      x2="30"
-                      y1="20"
-                      y2="80"
-                      stroke="#0f172a"
-                      strokeWidth="2"
-                    />
-                    <rect
-                      x="30"
-                      y="30"
-                      width="80"
-                      height="40"
-                      fill="rgba(0,168,107,0.18)"
-                      stroke="#00a86b"
-                      rx="8"
-                    />
-                    <line
-                      x1="70"
-                      x2="70"
-                      y1="30"
-                      y2="70"
-                      stroke="#00a86b"
-                      strokeWidth="2"
+                {chart.type === "pie" && (
+                  <svg viewBox="0 0 180 100" className="h-full w-full">
+                    <circle
+                      cx="90"
+                      cy="50"
+                      r="40"
+                      fill="none"
+                      stroke="#d9f2e6"
+                      strokeWidth="20"
                     />
                     <circle
-                      cx="120"
-                      cy="45"
-                      r="6"
-                      fill="#0f172a"
-                      stroke="white"
-                      strokeWidth="2"
+                      cx="90"
+                      cy="50"
+                      r="40"
+                      fill="none"
+                      stroke="#00a86b"
+                      strokeWidth="20"
+                      strokeDasharray="160 251"
+                      strokeDashoffset="0"
+                      transform="rotate(-90 90 50)"
                     />
+                    <text
+                      x="90"
+                      y="55"
+                      textAnchor="middle"
+                      fontSize="14"
+                      fill="#0f172a"
+                      fontWeight="bold"
+                    >
+                      64%
+                    </text>
                   </svg>
                 )}
               </div>
