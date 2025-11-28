@@ -22,7 +22,7 @@ export function Footer() {
               </h4>
               <div className="flex flex-col gap-2">
                 <Link
-                  href="/"
+                  href="/home"
                   className="text-sm text-white/80 transition hover:text-white"
                 >
                   Home

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const links = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: "/home" },
   { label: "Dashboard", href: "/dashboard" },
   { label: "Map", href: "/map" },
   { label: "Insight", href: "/insight" },
@@ -46,7 +46,7 @@ export function Navbar() {
     >
       <div className="flex items-center justify-between gap-4">
         <Link
-          href="/"
+          href="/home"
           className="flex items-center gap-3 text-base font-semibold transition-transform duration-200 hover:scale-105"
         >
           <div className="relative">
