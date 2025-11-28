@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import type { FeatureCollection } from "geojson";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,6 +45,25 @@ export function MapPage() {
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [position, setPosition] = useState({ coordinates: [112.6, -7.4], zoom: 1 });
+
+  const handleZoomIn = () => {
+    if (position.zoom >= 4) return;
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 1.2 }));
+  };
+
+  const handleZoomOut = () => {
+    if (position.zoom <= 1) return;
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom / 1.2 }));
+  };
+
+  const handleMoveEnd = (position: { coordinates: [number, number]; zoom: number }) => {
+    setPosition(position);
+  };
+
+  const handleResetZoom = () => {
+    setPosition({ coordinates: [112.6, -7.4], zoom: 1 });
+  };
 
   // Load GeoJSON
   useEffect(() => {
@@ -486,76 +505,149 @@ export function MapPage() {
               </div>
               <div className="map-container relative h-[500px] lg:h-[600px] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-50 to-white border border-slate-200">
                 {geoData && (
-                  <ComposableMap
+                  <>
+                    <ComposableMap
                     projection="geoMercator"
                     projectionConfig={{ scale: 5000, center: [112.6, -7.4] }}
                     width={800}
                     height={600}
                     className="h-full w-full"
                   >
-                    <Geographies geography={geoData}>
-                      {({
-                        geographies,
-                      }: {
-                        geographies: Array<{
-                          rsmKey: string;
-                          properties?: { NAME_2?: string; name?: string };
-                        }>;
-                      }) =>
-                        geographies.map(
-                          (geo: {
+                    <ZoomableGroup
+                      zoom={position.zoom}
+                      center={position.coordinates as [number, number]}
+                      onMoveEnd={handleMoveEnd}
+                      maxZoom={4}
+                    >
+                      <Geographies geography={geoData}>
+                        {({
+                          geographies,
+                        }: {
+                          geographies: Array<{
                             rsmKey: string;
                             properties?: { NAME_2?: string; name?: string };
-                          }) => {
-                            const geoName =
-                              geo.properties?.NAME_2 ??
-                              geo.properties?.name ??
-                              "";
-                            const isHovered = hoveredRegion === geoName;
-                            const fillColor = getRegionColor(geoName);
+                          }>;
+                        }) =>
+                          geographies.map(
+                            (geo: {
+                              rsmKey: string;
+                              properties?: { NAME_2?: string; name?: string };
+                            }) => {
+                              const geoName =
+                                geo.properties?.NAME_2 ??
+                                geo.properties?.name ??
+                                "";
+                              const isHovered = hoveredRegion === geoName;
+                              const fillColor = getRegionColor(geoName);
 
-                            return (
-                              <Geography
-                                key={geo.rsmKey}
-                                geography={geo}
-                                onMouseEnter={(
-                                  e: React.MouseEvent<SVGPathElement>
-                                ) => handleRegionMouseEnter(e, geoName)}
-                                onMouseMove={(
-                                  e: React.MouseEvent<SVGPathElement>
-                                ) => handleRegionMouseMove(e)}
-                                onMouseLeave={handleRegionMouseLeave}
-                                onClick={() => handleRegionClick(geoName)}
-                                style={{
-                                  default: {
-                                    fill: fillColor,
-                                    outline: "none",
-                                    stroke: isHovered ? "#0f172a" : "#94a3b8",
-                                    strokeWidth: isHovered ? 2 : 1,
-                                    cursor: "pointer",
-                                    transition: "all 0.2s",
-                                  },
-                                  hover: {
-                                    fill: fillColor,
-                                    outline: "none",
-                                    stroke: "#0f172a",
-                                    strokeWidth: 2,
-                                    cursor: "pointer",
-                                  },
-                                  pressed: {
-                                    fill: fillColor,
-                                    outline: "none",
-                                    stroke: "#0f172a",
-                                    strokeWidth: 2,
-                                  },
-                                }}
-                              />
-                            );
-                          }
-                        )
-                      }
-                    </Geographies>
+                              return (
+                                <Geography
+                                  key={geo.rsmKey}
+                                  geography={geo}
+                                  onMouseEnter={(
+                                    e: React.MouseEvent<SVGPathElement>
+                                  ) => handleRegionMouseEnter(e, geoName)}
+                                  onMouseMove={(
+                                    e: React.MouseEvent<SVGPathElement>
+                                  ) => handleRegionMouseMove(e)}
+                                  onMouseLeave={handleRegionMouseLeave}
+                                  onClick={() => handleRegionClick(geoName)}
+                                  style={{
+                                    default: {
+                                      fill: fillColor,
+                                      outline: "none",
+                                      stroke: isHovered ? "#0f172a" : "#94a3b8",
+                                      strokeWidth: isHovered ? 2 : 1,
+                                      cursor: "pointer",
+                                      transition: "all 0.2s",
+                                    },
+                                    hover: {
+                                      fill: fillColor,
+                                      outline: "none",
+                                      stroke: "#0f172a",
+                                      strokeWidth: 2,
+                                      cursor: "pointer",
+                                    },
+                                    pressed: {
+                                      fill: fillColor,
+                                      outline: "none",
+                                      stroke: "#0f172a",
+                                      strokeWidth: 2,
+                                    },
+                                  }}
+                                />
+                              );
+                            }
+                          )
+                        }
+                      </Geographies>
+                    </ZoomableGroup>
                   </ComposableMap>
+                  
+                  {/* Zoom Controls */}
+                  <div className="absolute bottom-4 right-4 flex flex-col gap-2">
+                    <button
+                      onClick={handleZoomIn}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-700 shadow-lg border border-slate-200 hover:bg-slate-50 hover:text-[var(--accent)] transition-colors"
+                      title="Zoom In"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 4.5v15m7.5-7.5h-15"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={handleZoomOut}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-700 shadow-lg border border-slate-200 hover:bg-slate-50 hover:text-[var(--accent)] transition-colors"
+                      title="Zoom Out"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 12h14"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={handleResetZoom}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-700 shadow-lg border border-slate-200 hover:bg-slate-50 hover:text-[var(--accent)] transition-colors"
+                      title="Reset Zoom"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-5 w-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  </>
                 )}
               </div>
             </section>
