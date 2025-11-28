@@ -848,7 +848,7 @@ export function InsightPage() {
           className="rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-900 to-[#00a86b] p-8 text-white shadow-xl"
         >
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-white mb-2">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
               Prediksi Sederhana (SMA) - 2023-2027
             </h2>
             <p className="text-sm text-white/80">
@@ -862,7 +862,7 @@ export function InsightPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70 mb-2">
                 Prediksi {prediction.nextYear1}
               </p>
-              <p className="text-4xl font-bold text-white mb-2">
+              <p className="text-3xl md:text-4xl font-bold text-white mb-2">
                 {prediction.predicted1.toLocaleString("id-ID", {
                   maximumFractionDigits: 0,
                 })}{" "}
@@ -880,7 +880,7 @@ export function InsightPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70 mb-2">
                 Prediksi {prediction.nextYear2}
               </p>
-              <p className="text-4xl font-bold text-white mb-2">
+              <p className="text-3xl md:text-4xl font-bold text-white mb-2">
                 {prediction.predicted2.toLocaleString("id-ID", {
                   maximumFractionDigits: 0,
                 })}{" "}
@@ -902,32 +902,32 @@ export function InsightPage() {
             </p>
             <div className="space-y-3">
               {prediction.historical.map((y) => (
-                <div
-                  key={y.tahun}
-                  className="flex items-center justify-between"
-                >
-                  <span className="text-sm text-white/90 font-medium">
-                    {y.tahun}
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-40 rounded-full bg-white/20 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-white/60"
-                        style={{
-                          width: `${(y.total / maxYear) * 100}%`,
-                        }}
-                      />
-                    </div>
-                    <span className="text-sm font-semibold text-white w-28 text-right">
-                      {y.total.toLocaleString("id-ID", {
-                        maximumFractionDigits: 0,
-                      })}{" "}
-                      ha
+                  <div
+                    key={y.tahun}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0"
+                  >
+                    <span className="text-sm text-white/90 font-medium">
+                      {y.tahun}
                     </span>
+                    <div className="flex items-center gap-3 w-full sm:w-auto">
+                      <div className="h-2 flex-1 sm:w-40 rounded-full bg-white/20 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-white/60"
+                          style={{
+                            width: `${(y.total / maxYear) * 100}%`,
+                          }}
+                        />
+                      </div>
+                      <span className="text-sm font-semibold text-white w-auto min-w-[5rem] sm:w-28 text-right">
+                        {y.total.toLocaleString("id-ID", {
+                          maximumFractionDigits: 0,
+                        })}{" "}
+                        ha
+                      </span>
+                    </div>
                   </div>
-                </div>
               ))}
-              <div className="flex items-center justify-between pt-2 border-t border-white/20">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0 pt-2 border-t border-white/20">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-white/90 font-semibold">
                     {prediction.nextYear1}
@@ -936,8 +936,8 @@ export function InsightPage() {
                     (Prediksi)
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-2 w-40 rounded-full bg-white/20 overflow-hidden">
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <div className="h-2 flex-1 sm:w-40 rounded-full bg-white/20 overflow-hidden">
                     <div
                       className="h-full rounded-full bg-amber-400"
                       style={{
@@ -945,7 +945,7 @@ export function InsightPage() {
                       }}
                     />
                   </div>
-                  <span className="text-sm font-semibold text-amber-300 w-28 text-right">
+                  <span className="text-sm font-semibold text-amber-300 w-auto min-w-[5rem] sm:w-28 text-right">
                     {prediction.predicted1.toLocaleString("id-ID", {
                       maximumFractionDigits: 0,
                     })}{" "}
@@ -953,7 +953,7 @@ export function InsightPage() {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-white/90 font-semibold">
                     {prediction.nextYear2}
@@ -962,8 +962,8 @@ export function InsightPage() {
                     (Prediksi)
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-2 w-40 rounded-full bg-white/20 overflow-hidden">
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <div className="h-2 flex-1 sm:w-40 rounded-full bg-white/20 overflow-hidden">
                     <div
                       className="h-full rounded-full bg-amber-400"
                       style={{
@@ -971,7 +971,7 @@ export function InsightPage() {
                       }}
                     />
                   </div>
-                  <span className="text-sm font-semibold text-amber-300 w-28 text-right">
+                  <span className="text-sm font-semibold text-amber-300 w-auto min-w-[5rem] sm:w-28 text-right">
                     {prediction.predicted2.toLocaleString("id-ID", {
                       maximumFractionDigits: 0,
                     })}{" "}
@@ -1024,14 +1024,14 @@ export function InsightPage() {
                   {regionProductivityPrediction.map((item) => (
                     <div
                       key={item.tahun}
-                      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
+                      className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 p-4 rounded-xl border transition-all ${
                         item.isPredicted
                           ? "bg-amber-50/50 border-amber-200/50"
                           : "bg-white border-slate-200"
                       }`}
                     >
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm font-semibold text-slate-900 w-20">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                        <span className="text-sm font-semibold text-slate-900 w-auto min-w-[3rem] sm:w-20">
                           {item.tahun}
                         </span>
                         {item.isPredicted && (
@@ -1044,7 +1044,7 @@ export function InsightPage() {
                         </span>
                       </div>
                       <span
-                        className={`text-sm font-bold ${
+                        className={`text-sm font-bold self-end sm:self-auto ${
                           item.isPredicted ? "text-amber-700" : "text-slate-900"
                         }`}
                       >
@@ -1067,14 +1067,14 @@ export function InsightPage() {
                   {commodityTopPrediction.map((item) => (
                     <div
                       key={item.tahun}
-                      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
+                      className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 p-4 rounded-xl border transition-all ${
                         item.isPredicted
                           ? "bg-amber-50/50 border-amber-200/50"
                           : "bg-white border-slate-200"
                       }`}
                     >
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm font-semibold text-slate-900 w-20">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                        <span className="text-sm font-semibold text-slate-900 w-auto min-w-[3rem] sm:w-20">
                           {item.tahun}
                         </span>
                         {item.isPredicted && (
@@ -1087,7 +1087,7 @@ export function InsightPage() {
                         </span>
                       </div>
                       <span
-                        className={`text-sm font-bold ${
+                        className={`text-sm font-bold self-end sm:self-auto ${
                           item.isPredicted ? "text-amber-700" : "text-slate-900"
                         }`}
                       >
@@ -1111,23 +1111,25 @@ export function InsightPage() {
                   {productivityChangePrediction.map((item, idx) => (
                     <div
                       key={item.tahun}
-                      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
+                      className={`flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-0 p-4 rounded-xl border transition-all ${
                         item.isPredicted
                           ? "bg-amber-50/50 border-amber-200/50"
                           : "bg-white border-slate-200"
                       }`}
                     >
-                      <div className="flex items-center gap-4 flex-1">
-                        <span className="text-sm font-semibold text-slate-900 w-20">
-                          {item.tahun}
-                        </span>
-                        {item.isPredicted && (
-                          <span className="text-xs px-2 py-1 rounded-lg bg-amber-100 text-amber-700 font-medium border border-amber-200">
-                            Prediksi
+                      <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-4 flex-1 w-full">
+                        <div className="flex items-center gap-2 sm:w-20 shrink-0">
+                          <span className="text-sm font-semibold text-slate-900">
+                            {item.tahun}
                           </span>
-                        )}
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-1">
+                          {item.isPredicted && (
+                            <span className="text-xs px-2 py-1 rounded-lg bg-amber-100 text-amber-700 font-medium border border-amber-200">
+                              Prediksi
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex-1 w-full">
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
                             <span className="text-sm font-semibold text-slate-700">
                               Total:{" "}
                               {item.total.toLocaleString("id-ID", {
