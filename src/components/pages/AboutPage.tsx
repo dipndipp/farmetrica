@@ -4,209 +4,180 @@ import Image from "next/image";
 
 export function AboutPage() {
   return (
-    <div className="bg-slate-50 text-slate-900 min-h-screen">
-      <main className="mx-auto w-full max-w-7xl flex flex-col gap-10 px-6 pb-20 pt-10 lg:px-10">
+    <div className="flex flex-col gap-16 w-full">
         {/* HERO SECTION */}
         <motion.section
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-emerald-50/30 to-emerald-100/40 px-10 py-14 shadow-xl border border-emerald-100"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-white via-[#f8faf9] to-[#eef5f1] px-8 py-20 shadow-[0_40px_120px_rgba(15,23,42,0.18)] lg:px-16 lg:py-24"
         >
+          {/* Animated Background Elements */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.08),_transparent_70%)]" />
+            <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-emerald-500/10 blur-[100px] animate-pulse" />
+            <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-[#00a86b]/5 blur-[80px]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,168,107,0.08),_transparent_55%)]" />
           </div>
-          <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="space-y-5 max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs uppercase tracking-wider font-semibold text-emerald-700 shadow-sm backdrop-blur-sm border border-emerald-200/50">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+
+          <div className="relative z-10 flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl space-y-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-3 rounded-full bg-white/70 px-5 py-2 text-sm font-medium uppercase tracking-widest text-[var(--accent)] backdrop-blur-md border border-white/60"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)]"></span>
+                </span>
                 About Farmetrica
-              </div>
-              <h1 className="text-5xl font-bold leading-tight lg:text-6xl">
-                Tentang <span className="text-emerald-600">Farmetrica</span>
+              </motion.div>
+              
+              <h1 className="text-5xl font-bold leading-tight tracking-tight text-slate-900 lg:text-7xl">
+                Revolusi Data <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-emerald-600">
+                  Pertanian Jatim
+                </span>
               </h1>
-              <p className="text-lg text-slate-600 leading-relaxed">
-                Farmetrica adalah platform analitik pertanian Jawa Timur yang
-                menggabungkan data satelit, laporan panen, dan prediksi berbasis
-                AI untuk membantu pengambilan keputusan yang lebih baik.
+              
+              <p className="max-w-xl text-lg text-slate-600 leading-relaxed lg:text-xl">
+                Farmetrica menggabungkan kecerdasan data satelit, analitik presisi, dan wawasan lokal untuk memberdayakan masa depan pertanian Jawa Timur.
               </p>
             </div>
-            <div className="flex items-center justify-center mt-6 lg:mt-0">
-              <div className="w-48 h-48 rounded-2xl bg-white/80 backdrop-blur-sm shadow-lg border border-emerald-100 flex items-center justify-center">
-                <Image
-                  src="/farmetricaLogo.svg"
-                  alt="Farmetrica Logo"
-                  width={200}
-                  height={20}
-                  className="object-contain"
-                />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="relative flex items-center justify-center lg:mt-0"
+            >
+              <div className="relative h-64 w-64 rounded-3xl bg-gradient-to-br from-white/80 to-white/60 p-1 backdrop-blur-xl border border-white/60 shadow-[0_0_40px_rgba(0,168,107,0.15)] rotate-3 hover:rotate-0 transition-transform duration-500">
+                <div className="flex h-full w-full items-center justify-center rounded-[1.3rem] bg-white/90">
+                  <Image
+                    src="/farmetricaLogo.svg"
+                    alt="Farmetrica Logo"
+                    width={180}
+                    height={180}
+                    className="object-contain drop-shadow-2xl"
+                  />
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.section>
 
-        {/* MISI SECTION */}
-        <motion.section
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="grid gap-6 md:grid-cols-3"
-        >
+        {/* MISSION SECTION */}
+        <section className="grid gap-8 md:grid-cols-3">
           {[
             {
               title: "Transparansi Data",
-              desc: "Menyajikan data pertanian yang mudah diakses, akurat, dan dapat diverifikasi oleh siapa saja.",
-              icon: "📊",
-              color: "from-blue-500 to-blue-600",
+              desc: "Akses terbuka ke data pertanian yang valid dan real-time untuk semua stakeholder.",
+              icon: (
+                <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+              ),
+              bg: "bg-blue-50",
+              border: "group-hover:border-blue-200",
             },
             {
               title: "Prediksi Cerdas",
-              desc: "Menggunakan model statistik dan AI untuk memprediksi tren panen dan membantu perencanaan.",
-              icon: "🤖",
-              color: "from-emerald-500 to-emerald-600",
+              desc: "Forecasting hasil panen menggunakan model machine learning berbasis iklim.",
+              icon: (
+                <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              ),
+              bg: "bg-emerald-50",
+              border: "group-hover:border-emerald-200",
             },
             {
-              title: "Aksi Berbasis Insight",
-              desc: "Mendorong pengambilan keputusan yang cepat dan tepat melalui visualisasi dan insight yang mudah dipahami.",
-              icon: "🚀",
-              color: "from-amber-500 to-orange-600",
+              title: "Aksi Nyata",
+              desc: "Mengubah insight kompleks menjadi rekomendasi praktis bagi petani.",
+              icon: (
+                <svg className="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              ),
+              bg: "bg-amber-50",
+              border: "group-hover:border-amber-200",
             },
-          ].map((misi, i) => (
+          ].map((item, i) => (
             <motion.div
-              key={misi.title}
-              className="rounded-2xl bg-white p-8 shadow-lg border border-slate-200 flex flex-col items-start gap-4 hover:shadow-xl transition-shadow"
-              initial={{ y: 40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className={`group relative flex flex-col gap-5 rounded-3xl bg-white p-8 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${item.border}`}
             >
-              <div
-                className={`text-4xl w-16 h-16 rounded-xl bg-gradient-to-br ${misi.color} flex items-center justify-center shadow-md`}
-              >
-                <span>{misi.icon}</span>
+              <div className={`flex h-16 w-16 items-center justify-center rounded-2xl ${item.bg} transition-transform duration-300 group-hover:scale-110`}>
+                {item.icon}
               </div>
-              <h3 className="text-xl font-bold text-slate-900">{misi.title}</h3>
-              <p className="text-slate-600 text-base leading-relaxed">
-                {misi.desc}
-              </p>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">{item.title}</h3>
+                <p className="mt-3 text-slate-600 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
-        </motion.section>
+        </section>
 
-        {/* TEAM SECTION - Improved Layout */}
+        {/* DEVELOPER SECTION */}
         <motion.section
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-900 to-emerald-700 p-10 lg:p-12 text-white shadow-2xl"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-slate-900 via-emerald-900 to-[#00a86b] p-8 lg:p-16 text-white shadow-2xl"
         >
-          <div className="mb-10 text-center">
-            <p className="text-xs uppercase tracking-widest font-bold text-white/70 mb-3">
-              MEET THE DEVELOPER
-            </p>
-            <h2 className="text-4xl font-bold text-white">
-              The Man Behind Farmetrica
-            </h2>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-10 items-start">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(0,168,107,0.3),_transparent_70%)]" />
+          <div className="absolute top-0 right-0 h-64 w-64 bg-gradient-to-br from-white/5 to-transparent rounded-bl-full" />
+          
+          <div className="relative z-10 flex flex-col lg:flex-row gap-16 items-center">
             {/* Profile Card */}
-            <div className="flex-shrink-0 w-full lg:w-80">
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 p-8 shadow-xl">
-                <div className="w-32 h-32 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-lg flex items-center justify-center text-5xl font-bold text-white">
-                  N
+            <div className="w-full max-w-sm shrink-0">
+              <div className="group relative rounded-3xl bg-white/5 p-6 backdrop-blur-xl border border-white/10 transition-transform hover:scale-[1.02]">
+                <div className="aspect-square w-full overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500 shadow-lg mb-6 flex items-center justify-center">
+                   <span className="text-8xl font-bold text-white/90">N</span>
                 </div>
-                <div className="text-center space-y-2">
-                  <h3 className="text-2xl font-bold text-white">
-                    Muhammad Ihsan Nadhif
-                  </h3>
-                  <p className="text-emerald-300 font-semibold text-base">
-                    Lead Developer
-                  </p>
-                  <div className="pt-4 flex gap-3 justify-center">
-                    {/* LinkedIn */}
-                    <a
-                      href="https://www.linkedin.com/in/dipnadipp"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-lg bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center border border-white/30"
-                      aria-label="LinkedIn Profile"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        className="w-5 h-5 text-white"
-                        fill="currentColor"
-                      >
-                        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.32 8.02H4.7V24H.32V8.02zM8.34 8.02h4.18v2.17h.06c.58-1.1 2-2.26 4.11-2.26 4.4 0 5.21 2.9 5.21 6.68V24h-4.38v-8.1c0-1.93-.04-4.41-2.69-4.41-2.7 0-3.11 2.11-3.11 4.28V24H8.34V8.02z" />
-                      </svg>
-                    </a>
-
-                    {/* GitHub */}
-                    <a
-                      href="https://github.com/dipndipp"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 rounded-lg bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center border border-white/30"
-                      aria-label="GitHub Profile"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        className="w-5 h-5 text-white"
-                        fill="currentColor"
-                      >
-                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.35-1.29-1.71-1.29-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.69.42.37.8 1.1.8 2.22 0 1.6-.02 2.88-.02 3.27 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-                      </svg>
-                    </a>
+                <div className="space-y-4 text-center">
+                  <div>
+                    <h3 className="text-2xl font-bold">M. Ihsan Nadhif</h3>
+                    <p className="text-emerald-300 font-medium tracking-wide text-sm uppercase mt-1">Lead Developer</p>
+                  </div>
+                  <div className="flex justify-center gap-3 pt-2">
+                     <a href="https://linkedin.com/in/dipnadipp" target="_blank" className="p-3 rounded-xl bg-white/10 hover:bg-emerald-500/20 transition-colors border border-white/5">
+                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                     </a>
+                     <a href="https://github.com/dipndipp" target="_blank" className="p-3 rounded-xl bg-white/10 hover:bg-emerald-500/20 transition-colors border border-white/5">
+                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                     </a>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Bio Content */}
-            <div className="flex-1 space-y-6">
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 p-8 shadow-lg">
-                <h4 className="text-xl font-bold text-white mb-4">
-                  Tentang Saya
-                </h4>
-                <p className="text-white/90 text-base leading-relaxed text-justify">
-                  Hi, I'm Nadhif — a full-stack developer currently studying
-                  Data Science at Politeknik Elektronika Negeri Surabaya.
-                  <br />
-                  Farmetrica hadir sebagai ruang kecil untuk bikin data
-                  pertanian Jawa Timur lebih kebaca dan grounded. Lewat visual
-                  yang bersih, insight berbasis probabilitas, dan analisis yang
-                  ringan tapi tepat sasaran, project ini ditujukan untuk
-                  memperlihatkan bagaimana data bisa bercerita jauh lebih jelas
-                  ketika disajikan dengan cara yang tepat.
+            <div className="flex-1 space-y-8">
+              <div>
+                <h2 className="text-4xl font-bold mb-6">The Mind Behind <span className="text-emerald-300">Farmetrica</span></h2>
+                <p className="text-lg text-white/80 leading-relaxed text-justify">
+                  Hi, saya Nadhif — mahasiswa Data Science di PENS yang percaya bahwa data pertanian tidak harus membosankan.
+                  <br /><br />
+                  Farmetrica lahir dari keresahan sederhana: kenapa data pertanian Jawa Timur yang begitu kaya, seringkali sulit dipahami? 
+                  Dengan menggabungkan <span className="text-white font-semibold">modern web tech</span> dan <span className="text-white font-semibold">data storytelling</span>, 
+                  saya membangun platform ini untuk menjembatani gap antara angka statistik yang dingin dengan realita lapangan yang dinamis.
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-white/10 backdrop-blur-md border-2 border-white/20 p-8 shadow-lg">
-                <h4 className="text-xl font-bold text-white mb-5">
-                  Keahlian & Fokus
-                </h4>
-                <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <h4 className="text-sm font-bold uppercase tracking-widest text-white/70 mb-4">Tech Stack & Skills</h4>
+                <div className="flex flex-wrap gap-3">
                   {[
-                    "Fullstack Engineering & Data Science",
-                    "Visualisasi Data & Analytics",
-                    "Aplikasi Dashboard & Monitoring",
-                    "Solusi untuk Petani & Stakeholder",
-                  ].map((skill, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10"
-                    >
-                      <span className="text-emerald-400 font-bold text-lg">
-                        ✓
-                      </span>
-                      <span className="text-white/90 text-sm leading-relaxed">
-                        {skill}
-                      </span>
-                    </div>
+                    "Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", 
+                    "Data Visualization", "Geospatial Analysis", "UI/UX Design"
+                  ].map((skill) => (
+                    <span key={skill} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-emerald-300 hover:bg-emerald-500/10 transition-colors cursor-default">
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -214,42 +185,42 @@ export function AboutPage() {
           </div>
         </motion.section>
 
-        {/* CONTACT SECTION */}
+        {/* CTA SECTION */}
+        {/* CTA SECTION */}
         <motion.section
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="rounded-3xl bg-white p-10 lg:p-12 shadow-xl border border-slate-200 text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-slate-800 to-slate-900 px-8 py-16 text-center text-white shadow-2xl lg:py-20"
         >
-          <div className="max-w-2xl mx-auto space-y-6">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg mb-4">
-              <span className="text-4xl">✉️</span>
-            </div>
-            <h3 className="text-3xl font-bold text-slate-900">Hubungi Kami</h3>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Punya pertanyaan, saran, atau ingin berkolaborasi? Kami terbuka
-              untuk diskusi dan masukan demi pengembangan Farmetrica yang lebih
-              baik.
+          {/* Decorative Elements */}
+          <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/20 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]" />
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+          
+          <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+            <h2 className="text-4xl font-bold lg:text-5xl tracking-tight">
+              Mulai Eksplorasi Data
+            </h2>
+            <p className="text-xl text-slate-300 leading-relaxed">
+              Temukan wawasan mendalam tentang pertanian Jawa Timur melalui dashboard interaktif dan pemetaan geospasial kami.
             </p>
-            <a
-              href="mailto:hello@farmetrica.com"
-              className="inline-flex items-center gap-3 mt-6 rounded-xl bg-emerald-600 px-8 py-4 text-white font-bold text-lg shadow-lg hover:bg-emerald-700 hover:shadow-xl transition-all"
-            >
-              <span>📧</span>
-              hello@farmetrica.com
-            </a>
-            <div className="pt-6 flex gap-4 justify-center">
-              <div className="px-6 py-3 rounded-lg bg-slate-100 text-slate-700 text-sm font-semibold">
-                💬 Chat Support
-              </div>
-              <div className="px-6 py-3 rounded-lg bg-slate-100 text-slate-700 text-sm font-semibold">
-                📱 Social Media
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <a
+                href="/dashboard"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-bold text-slate-900 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl hover:bg-emerald-50 active:scale-95"
+              >
+                <span>📊</span> Buka Dashboard
+              </a>
+              <a
+                href="/map"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/40 active:scale-95"
+              >
+                <span>🗺️</span> Peta Interaktif
+              </a>
             </div>
           </div>
         </motion.section>
-      </main>
     </div>
   );
 }
