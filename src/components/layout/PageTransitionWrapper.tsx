@@ -20,7 +20,7 @@ export function PageTransitionWrapper({ children }: Props) {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen">
+    <div className="w-full">
       <AnimatePresence mode="wait">
         <motion.div
           key={pathname}

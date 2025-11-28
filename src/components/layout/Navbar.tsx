@@ -19,17 +19,7 @@ export function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const prevPathnameRef = useRef(pathname);
 
-  // Animate navbar on route change using CSS classes
-  useEffect(() => {
-    if (prevPathnameRef.current !== pathname && headerRef.current) {
-      headerRef.current.classList.add("navbar-animate");
-      const timer = setTimeout(() => {
-        headerRef.current?.classList.remove("navbar-animate");
-      }, 300);
-      prevPathnameRef.current = pathname;
-      return () => clearTimeout(timer);
-    }
-  }, [pathname]);
+
 
   // Close menu when clicking outside
   useEffect(() => {

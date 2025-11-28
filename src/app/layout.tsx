@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     "Farmetrica is an agricultural data visualization platform that provides insights into East Java's farming landscape through satellite imagery and harvest reports.",
 };
 
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+
 export default function RootLayout({
   children,
 }: {
@@ -29,7 +32,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PageTransitionWrapper>{children}</PageTransitionWrapper>
+        <div className="bg-[var(--background)] text-[var(--foreground)]">
+          <main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-8 px-6 pb-16 pt-8 lg:px-10">
+            <Navbar />
+            <PageTransitionWrapper>{children}</PageTransitionWrapper>
+            <Footer />
+          </main>
+        </div>
       </body>
     </html>
   );
